@@ -42,6 +42,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+    body,html{
+        height: 100%;
+    }
     .login-whole{
         height: 100%;
         display: flex;
