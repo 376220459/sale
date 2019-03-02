@@ -29,7 +29,7 @@
                     </li>
                     <li class="dashang">
                         <p>鼓励作者，<br/>他们会做的更好：</p>
-                        <img src="/static/pic/fukuanma.png" alt="付款码" height="95px">
+                        <img src="/static/pic/zhifu.png" alt="付款码" height="95px">
                     </li>
                 </ul>
             </footer>

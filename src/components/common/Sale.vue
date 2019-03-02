@@ -128,7 +128,7 @@ export default {
             allTotals: 80,
             goods: [
                 {
-                    img: '/static/pic/mayuan.jpg',
+                    img: 'static/pic/mayuan.jpg',
                     name: '马克思主义基本原理概论',
                     price: 10,
                     look: 8888,
@@ -136,7 +136,7 @@ export default {
                     trade: '当面交易'
                 },
                 {
-                    img: '/static/pic/shouji.jpg',
+                    img: 'static/pic/shouji.jpg',
                     name: 'Iphone5',
                     price: 1500,
                     look: 8888,
@@ -144,7 +144,7 @@ export default {
                     trade: '当面交易'
                 },
                 {
-                    img: '/static/pic/mayuan.jpg',
+                    img: 'static/pic/mayuan.jpg',
                     name: '马克思主义基本原理概论',
                     price: 10,
                     look: 8888,
@@ -152,7 +152,7 @@ export default {
                     trade: '当面交易'
                 },
                 {
-                    img: '/static/pic/shouji.jpg',
+                    img: 'static/pic/shouji.jpg',
                     name: 'Iphone5',
                     price: 1500,
                     look: 8888,
@@ -160,7 +160,7 @@ export default {
                     trade: '当面交易'
                 },
                 {
-                    img: '/static/pic/mayuan.jpg',
+                    img: 'static/pic/mayuan.jpg',
                     name: '马克思主义基本原理概论',
                     price: 10,
                     look: 8888,
@@ -168,7 +168,7 @@ export default {
                     trade: '当面交易'
                 },
                 {
-                    img: '/static/pic/shouji.jpg',
+                    img: 'static/pic/shouji.jpg',
                     name: 'Iphone5',
                     price: 1500,
                     look: 8888,
@@ -176,7 +176,7 @@ export default {
                     trade: '当面交易'
                 },
                 {
-                    img: '/static/pic/mayuan.jpg',
+                    img: 'static/pic/mayuan.jpg',
                     name: '马克思主义基本原理概论',
                     price: 10,
                     look: 8888,
@@ -184,7 +184,7 @@ export default {
                     trade: '当面交易'
                 },
                 {
-                    img: '/static/pic/shouji.jpg',
+                    img: 'static/pic/shouji.jpg',
                     name: 'Iphone5',
                     price: 1500,
                     look: 8888,
@@ -321,6 +321,7 @@ export default {
             top: 50px;
             background: #202020;
             overflow: auto;
+            z-index: 100;
             ul{
                 li{
                     color: #B0B0B0;
@@ -367,7 +368,7 @@ export default {
                 height: 30px;
                 border-radius: 5px;
                 background: rgba(0,0,0,0.1);
-                margin: 20px 0;
+                margin-top: 20px;
                 ul{
                     width: 100%;
                     height: 100%;
@@ -394,7 +395,7 @@ export default {
                     flex-wrap: wrap;
                     // justify-content: flex-start;
                     li{
-                        width: 250px;
+                        width: 300px;
                         height: 400px;
                         background: rgba(255,255,255,0.5);
                         display: flex;
@@ -402,7 +403,7 @@ export default {
                         justify-content: center;
                         align-items: center;
                         border-radius: 10px;
-                        margin: 30px;
+                        margin: 15px 20px;
                         border: 1px solid #B0B0B0;
                         div.goods-price-look{
                             width: 100%;
@@ -462,7 +463,7 @@ export default {
                             }
                         }
                         img{
-                            width: 200px;
+                            width: 250px;
                             height: 250px;
                         }
                     }
@@ -470,13 +471,13 @@ export default {
                         cursor: pointer;
                         transition: background-color 0.5s,transform 0.5s;
                         background-color: white;
-                        transform: scale(1.1)
+                        transform: translateY(-10px);
                     }
                 }
             }
             div.page{
                 width: 100%;
-                margin: 20px 0;
+                margin-bottom: 20px;
             }
             footer{
                 height: 100px;
@@ -530,7 +531,7 @@ export default {
             transform: translateX(-50%);
             border: 1px solid gray;
             border-radius: 20px;
-            background: rgba(200,200,200,0.3);
+            background: rgba(200,200,200,0.6);
             padding: 20px 40px;
             i{
                 font-size: 1.8em;

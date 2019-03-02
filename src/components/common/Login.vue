@@ -6,8 +6,8 @@
                 <el-input v-model="psd" class="psd" type="password" clearable placeholder="请输入密码" @keyup.native.enter="login"><template slot="prepend"><i class="iconfont icon-mima"></i></template></el-input>
                 <el-button type="success" class="login" @click="login">登录</el-button>
                 <div>
-                    <router-link to="/seek">忘记密码？</router-link>
-                    <router-link to="/register">注册账号</router-link>
+                    <span @click="notify.close();"><router-link to="/seek">忘记密码？</router-link></span>
+                    <span @click="notify.close();"><router-link to="/register">注册账号</router-link></span>
                 </div>
             </form>
         </main>
@@ -19,22 +19,37 @@ export default {
     name: 'Login',
     data(){
         return{
+            notify: undefined,
             user: '',
             psd: ''
         }
     },
     methods: {
         login(){
-            this.$router.push({
-                path: '/sale'
+            this.$http.post('http://39.96.23.138:8083/user/login',{
+                "tel": this.user,
+                "password": this.psd
+            },
+            {timeout: 3000})
+            .then((res)=>{
+                console.log(res.data);
+                if(res.data.status == 1){
+                    this.notify.close();
+                    this.$router.push({
+                        path: '/sale'
+                    })
+                }
+            })
+            .catch((err)=>{
+                console.log(err);
             })
         }
     },
     mounted() {
-        this.$notify({
+        this.notify = this.$notify({
             message: '为了良好的体验，您必须先进行登录才能浏览主页',
             type: 'warning',
-            duration: 3000,
+            duration: 0,
             showClose: true
         })
     },

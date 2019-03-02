@@ -74,13 +74,13 @@ export default {
                 ],
                 password: [
                     { required: true, message: '请输入密码'},
-                    { min: 8, max: 16, message: '长度在 8 到 16 个字符'},
-                    { pattern: /^[A-Za-z0-9.\@+-]+$/,message: '密码由字母、数字、指定符号（+ - @ .）组成'}
+                    { pattern: /^[A-Za-z0-9.\@+-]+$/,message: '密码由字母、数字、指定符号（+ - @ .）组成'},
+                    { min: 8, max: 16, message: '长度在 8 到 16 个字符'}
                 ],
                 passwordCheck: [
                     { validator: passwordCheck},
-                    { min: 8, max: 16, message: '长度在 8 到 16 个字符'},
-                    { pattern: /^[A-Za-z0-9.\@+-]+$/,message: '密码由字母、数字、指定符号（+ - @ .）组成'}
+                    { pattern: /^[A-Za-z0-9.\@+-]+$/,message: '密码由字母、数字、指定符号（+ - @ .）组成'},
+                    { min: 8, max: 16, message: '长度在 8 到 16 个字符'}
                 ],
                 school: [
                     { required: true, message: '请选择您所在的高校'}
@@ -96,7 +96,23 @@ export default {
         register(formName){
             this.$refs[formName].validate((valid) => {
             if (valid) {
-                alert('submit!');
+                // alert('submit!');
+                this.$http.post('http://39.96.23.138:8083/user/register',
+                    {
+                        "tel":this.tel,
+                        "password":this.password,
+                        "school":this.school,
+                        "name":this.name,
+                        "studentid":this.studentID
+                    },
+                    {timeout: 3000})
+                .then((res)=>{
+                    console.log(res.data);
+
+                })
+                .catch((err)=>{
+                    console.log(err);
+                })
             } else {
                 console.log('error submit!!');
                 return false;
@@ -136,6 +152,7 @@ export default {
                 display: flex;
                 justify-content: center;
                 padding: 50px 0;
+                overflow: auto;
                 .form{
                     width: 50%;
                     .button{
