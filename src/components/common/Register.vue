@@ -145,8 +145,8 @@ export default {
             display: flex;
             justify-content: center;
             .form-back{
-                width: 40%;
-                height: 60%;
+                width: 700px;
+                height: 450px;
                 background: rgba(232,232,232,0.4);
                 border-radius: 5%;
                 display: flex;

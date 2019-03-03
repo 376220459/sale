@@ -14,8 +14,20 @@
             </nav>
         </header>
 
+        <aside>
+            <p><i class="iconfont icon-jiaoya"></i>明信片</p>
+            <ul>
+                <li>姓名：{{ this.personInf.name }}</li>
+                <li>学校：{{ this.personInf.school }}</li>
+                <li>学号：{{ this.personInf.studentID }}</li>
+                <li>手机号：{{ this.personInf.tel }}</li>
+                <li>QQ：{{ this.personInf.qq }}</li>
+                <li>微信：{{ this.personInf.vx }}</li>
+            </ul>
+        </aside>
+
         <main>
-            <div style="height: 2000px;">
+            <div class="dynamic" style="height:800px">
 
             </div>
             <footer>
@@ -42,7 +54,14 @@ export default {
     name: 'Person',
     data(){
         return{
-
+            personInf: {
+                name: '王少华',
+                school: '西安邮电大学',
+                studentID: '04163197',
+                tel: 18392300504,
+                qq: '',
+                vx: ''
+            }
         }
     },
     methods: {
@@ -58,7 +77,8 @@ export default {
 <style lang="scss" scoped>
     .person-whole{
         // height: 100%;
-        background: #E0FFFF;
+        // background: #E0FFFF;
+        background: rgba(0,255,255,0.1);
         li.logo{
             margin: 0 20px 0 5px;
             border: 1px solid rgb(150, 238, 238);
@@ -126,8 +146,30 @@ export default {
                 }
             }
         }
+        aside{
+            box-sizing: border-box;
+            width: 370px;
+            height: 400px;
+            position: fixed;
+            top: 100px;
+            left: 30px;
+            background: #202020;
+            z-index: 100;
+            overflow: auto;
+            padding: 20px;
+            color: #B0B0B0;
+            border-radius: 20px;
+            p{
+                font-size: 50px;
+                color: #67C23A;
+                i{
+                    font-size: 50px;
+                }
+            }
+        }
         main{
             padding-top: 50px;
+            padding-left: 400px;
             footer{
                 height: 100px;
                 background: #484848;

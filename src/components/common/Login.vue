@@ -26,23 +26,35 @@ export default {
     },
     methods: {
         login(){
-            this.$http.post('http://39.96.23.138:8083/user/login',{
-                "tel": this.user,
-                "password": this.psd
-            },
-            {timeout: 3000})
-            .then((res)=>{
-                console.log(res.data);
-                if(res.data.status == 1){
-                    this.notify.close();
-                    this.$router.push({
-                        path: '/sale'
-                    })
-                }
-            })
-            .catch((err)=>{
-                console.log(err);
-            })
+            if(!/^1[34578]\d{9}$/.test(this.user)){
+                this.$message.error({
+                    message: '请输入正确的手机号',
+                    duration: 1000
+                });
+            }else if(this.psd == ''){
+                this.$message.error({
+                    message: '请输入密码',
+                    duration: 1000
+                });
+            }else{
+                this.$http.post('http://39.96.23.138:8083/user/login',{
+                    "tel": this.user,
+                    "password": this.psd
+                },
+                {timeout: 3000})
+                .then((res)=>{
+                    console.log(res.data);
+                    if(res.data.status == 1){
+                        this.notify.close();
+                        this.$router.push({
+                            path: '/sale'
+                        })
+                    }
+                })
+                .catch((err)=>{
+                    console.log(err);
+                })
+            }
         }
     },
     mounted() {
@@ -52,7 +64,7 @@ export default {
             duration: 0,
             showClose: true
         })
-    },
+    }
 }
 </script>
 

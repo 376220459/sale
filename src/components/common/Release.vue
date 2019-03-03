@@ -418,7 +418,7 @@ export default {
     .release-whole{
         // height: 100%;
         position: relative;
-        background: #E0FFFF;
+        background: rgba(0,255,255,0.1);
         div.cover{
             position: absolute;
             height: 100%;

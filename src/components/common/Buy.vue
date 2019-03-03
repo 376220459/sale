@@ -188,7 +188,7 @@ export default {
 <style lang="scss" scoped>
     .buy-whole{
         // height: 100%;
-        background: #E0FFFF;
+        background: rgba(0,255,255,0.1);
         li.logo{
             margin: 0 20px 0 5px;
             border: 1px solid rgb(150, 238, 238);

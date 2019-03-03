@@ -246,7 +246,7 @@ export default {
 <style lang="scss" scoped>
     .sale-whole{
         // height: 100%;
-        background: #E0FFFF;
+        background: rgba(0,255,255,0.1);
         li.logo{
             margin: 0 20px 0 5px;
             border: 1px solid rgb(150, 238, 238);
@@ -299,7 +299,7 @@ export default {
                             cursor: pointer;
                         }
                         .search-button:active{
-                            font-size: 1.8em;
+                            transform: scale(1.1);
                         }
                     }
                     li.time{
@@ -531,7 +531,7 @@ export default {
             transform: translateX(-50%);
             border: 1px solid gray;
             border-radius: 20px;
-            background: rgba(200,200,200,0.6);
+            background: rgba(250,250,250,0.7);
             padding: 20px 40px;
             i{
                 font-size: 1.8em;
