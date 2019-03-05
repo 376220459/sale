@@ -96,6 +96,7 @@ export default {
                     goodsName: 'Iphone X',
                     price: 7000,
                     school: '西安邮电大学',
+                    owner: '王先生',
                     tel: 18392300504,
                     qq: 376220459,
                     vx: 'V18392300504',
@@ -107,6 +108,7 @@ export default {
                     goodsName: 'Iphone X',
                     price: 7000,
                     school: '西安邮电大学',
+                    owner: '王先生',
                     tel: 18392300504,
                     qq: 376220459,
                     vx: 'V18392300504',
@@ -118,6 +120,7 @@ export default {
                     goodsName: 'Iphone X',
                     price: 7000,
                     school: '西安邮电大学',
+                    owner: '王先生',
                     tel: 18392300504,
                     qq: 376220459,
                     vx: 'V18392300504',
@@ -129,6 +132,7 @@ export default {
                     goodsName: 'Iphone X',
                     price: 7000,
                     school: '西安邮电大学',
+                    owner: '王先生',
                     tel: 18392300504,
                     qq: 376220459,
                     vx: 'V18392300504',
@@ -140,6 +144,7 @@ export default {
                     goodsName: 'Iphone X',
                     price: 7000,
                     school: '西安邮电大学',
+                    owner: '王先生',
                     tel: 18392300504,
                     qq: 376220459,
                     vx: 'V18392300504',
@@ -151,6 +156,7 @@ export default {
                     goodsName: 'Iphone X',
                     price: 7000,
                     school: '西安邮电大学',
+                    owner: '王先生',
                     tel: 18392300504,
                     qq: 376220459,
                     vx: 'V18392300504',
@@ -162,6 +168,7 @@ export default {
                     goodsName: 'Iphone X',
                     price: 7000,
                     school: '西安邮电大学',
+                    owner: '王先生',
                     tel: 18392300504,
                     qq: 376220459,
                     vx: 'V18392300504',
@@ -306,6 +313,7 @@ export default {
                         margin: 10px 0;
                         text-align: left;
                         padding: 0 20px;
+                        background: rgba(255,255,255,0.5);
                         p{
                             margin: 3px 0;
                             font-size: 20px;
@@ -346,7 +354,7 @@ export default {
                     li:hover{
                         cursor: pointer;
                         transition: background-color 0.5s,transform 0.5s;
-                        background-color: rgba(0,0,0,0.1);
+                        background-color: rgba(250,250,250,0.3);
                         transform: translateY(-10px);
                     }
                 }

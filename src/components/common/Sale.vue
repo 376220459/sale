@@ -395,25 +395,25 @@ export default {
                     flex-wrap: wrap;
                     // justify-content: flex-start;
                     li{
-                        width: 300px;
-                        height: 400px;
+                        width: 260px;
+                        height: 370px;
                         background: rgba(255,255,255,0.5);
                         display: flex;
                         flex-direction: column;
                         justify-content: center;
                         align-items: center;
                         border-radius: 10px;
-                        margin: 15px 20px;
+                        margin: 15px 15px;
                         border: 1px solid #B0B0B0;
                         div.goods-price-look{
                             width: 100%;
                             display: flex;
                             justify-content: space-around;
                             align-items: center;
-                            margin: 5px 0;
+                            // margin: 2px 0;
                             p:nth-child(1){
                                 color: #CC6600;
-                                font-size: 35px;
+                                font-size: 30px;
                             }
                             .icon-fl-renminbi{
                                 color: #CC6600;
@@ -444,7 +444,7 @@ export default {
                         .goods-school{
                             width: 220px;
                             font-size: 15px;
-                            margin: 5px 0;
+                            // margin: 1px 0;
                             text-align: left;
                             color: #A0A0A0;
                             i{
@@ -465,6 +465,7 @@ export default {
                         img{
                             width: 250px;
                             height: 250px;
+                            border-radius: 5px;
                         }
                     }
                     li:hover{

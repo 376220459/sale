@@ -99,11 +99,11 @@ export default {
                 // alert('submit!');
                 this.$http.post('http://39.96.23.138:8083/user/register',
                     {
-                        "tel":this.tel,
-                        "password":this.password,
-                        "school":this.school,
-                        "name":this.name,
-                        "studentid":this.studentID
+                        "tel":this.registerForm.tel,
+                        "password":this.registerForm.password,
+                        "school":this.registerForm.school,
+                        "name":this.registerForm.name,
+                        "studentid":this.registerForm.studentID
                     },
                     {timeout: 3000})
                 .then((res)=>{
