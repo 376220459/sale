@@ -189,6 +189,9 @@ export default {
             this.$message('当前页数：' + pageNum);
         }
     },
+    created(){
+        document.title="求购"
+    },
 }
 </script>
 

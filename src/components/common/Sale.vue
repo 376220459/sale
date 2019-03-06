@@ -67,7 +67,7 @@
 
             <div class="goods">
                 <ul>
-                    <li v-for="(item, index) in this.goods" :key="index">
+                    <li v-for="(item, index) in this.goods" :key="index" @click="goGoods()">
                         <img :src="item.img" alt="暂时无图">
                         <div class="goods-price-look">
                             <p><i class="iconfont icon-fl-renminbi"></i>{{ item.price }}</p>
@@ -206,6 +206,12 @@ export default {
                 path: pathName
             })
         },
+        goGoods(){
+            let routeUrl = this.$router.resolve({
+                path: "/goods"
+            });
+            window.open(routeUrl .href, '_blank');
+        },
         OpenSelectSchool(){
             this.showSchoolCondition = true;
         },
@@ -239,6 +245,9 @@ export default {
         changePage(pageNum){
             this.$message('当前页数：' + pageNum);
         }
+    },
+    created(){
+        document.title="首页"
     },
 }
 </script>
@@ -393,7 +402,6 @@ export default {
                 ul{
                     display: flex;
                     flex-wrap: wrap;
-                    // justify-content: flex-start;
                     li{
                         width: 260px;
                         height: 370px;
@@ -466,6 +474,7 @@ export default {
                             width: 250px;
                             height: 250px;
                             border-radius: 5px;
+                            object-fit: cover;
                         }
                     }
                     li:hover{

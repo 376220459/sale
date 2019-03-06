@@ -411,6 +411,9 @@ export default {
             this.$refs.upload.submit();
         },
     },
+    created(){
+        document.title="发布"
+    },
 }
 </script>
 

@@ -49,11 +49,11 @@
                         <div class="saleOperation" v-show="item.operationCondition">
                             <div @click="finishSaleTrade(index)">已交易</div>
                             <div @click="deleteSale(index)">删除</div>
-                            <div @click="goSale(index)">查看</div>
+                            <div @click="goGoods">查看</div>
                         </div>
 
                         <div class="saleTrade" v-show="item.tradeCondition">
-                            <div>查看详情</div>
+                            <div @click="goGoods">查看详情</div>
                             <div>已交易</div>
                         </div>
 
@@ -283,9 +283,15 @@ export default {
                 duration: 1000
             })
         },
-        goSale(index){
-
+        goGoods(){
+            let routeUrl = this.$router.resolve({
+                path: "/goods"
+            });
+            window.open(routeUrl .href, '_blank');
         }
+    },
+    created(){
+        document.title="个人中心"
     },
 }
 </script>
@@ -574,6 +580,7 @@ export default {
                             width: 250px;
                             height: 250px;
                             border-radius: 5px;
+                            object-fit: cover;
                         }
                     }
                 }

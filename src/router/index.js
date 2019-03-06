@@ -6,6 +6,7 @@ import Register from '@/components/common/Register'
 import Sale from '@/components/common/Sale'
 import Buy from '@/components/common/Buy'
 import Release from '@/components/common/Release'
+import Goods from '@/components/common/Goods'
 import Person from '@/components/person/Person'
 
 Vue.use(Router)
@@ -37,6 +38,11 @@ export default new Router({
       path: '/release',
       name: 'Release',
       component: Release
+    },
+    {
+      path: '/goods',
+      name: 'Goods',
+      component: Goods
     },
     {
       path: '/person',
