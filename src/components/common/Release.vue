@@ -44,7 +44,8 @@
                     </el-form-item>
 
                     <el-form-item label="相册:">
-                        <el-button round :type="uploadButtonType" size="mini" @click="uploadAlbum">{{ uploadButtonName }}</el-button>
+                        <img v-for="(item, index) in picURL" :key="index" :src="item" alt="" width="50px" height="50px" style="margin:5px;borderRadius:3px;">
+                        <el-button round :disabled="uploadButtonAble" :type="uploadButtonType" size="mini" @click="uploadAlbum">{{ uploadButtonName }}</el-button>
                     </el-form-item>
 
                     <el-form-item prop="price" label="价格:">
@@ -99,7 +100,7 @@
                     </el-form-item>
                 </el-form>
 
-                <div class="upload-cover" v-if="uploadAlbumIf" v-show="uploadAlbumShow">
+                <div class="upload-cover" v-if="uploadAlbumIf" v-show="uploadAlbumShow" v-loading="uploadLoading" element-loading-text="图片正在上传，请稍等..." element-loading-background="rgba(0, 0, 0, 0.6)">
                     <el-tooltip class="item" content="关闭" placement="right">
                         <i @click="changeUploadAlbumShow(false)" class="iconfont icon-guanbi"></i>
                     </el-tooltip>
@@ -107,18 +108,20 @@
                     <div class="tip">注意：为了使图片更美观，请尽量上传 300px*300px 的照片（方形），且大小不能超过 2MB。<p>选择好图片后，点击"我选好了"，进行上传。</p></div>
 
                     <el-upload
+                        class="upload"
+                        ref="upload"
                         accept="image/*"
-                        action=""
+                        action="http://192.168.43.166:8080/good/releaseGoodFile"
                         :file-list="albumList"
                         list-type="picture-card"
                         :limit="4"
                         :auto-upload="false"
+                        :on-remove="removeImg"
                         :on-change="checkImg"
                         :on-exceed="checkImgNum"
-                        :on-success ="handleAvatarSuccess"
-                        :on-error ="handleAvatarError"
-                        class="upload"
+                        :http-request="uploadGoodsPic"
                     >
+                    <!-- <el-progress type="circle" :percentage="0"></el-progress> -->
                         <i class="el-icon-plus"></i>
                     </el-upload>
                     
@@ -203,10 +206,13 @@ export default {
     name: 'Release',
     data(){
         return{
+            uploadLoading: false,
             uploadButtonName: '点击上传',
-            uploadButtonType: 'info',
+            uploadButtonType: 'warning',
+            uploadButtonAble: false,
             saleCondition: true,
             buyCondition: false,
+            goodsID: '',
             saleForm: {
                 goodsName: '',
                 dynamic: '',
@@ -268,7 +274,7 @@ export default {
                     { min: 5, max: 10, message: 'QQ号长度为5-10位，请核对填写'}
                 ],
                 vx: [
-                    { pattern: /^[a-zA-Z\d_]$/,message: '请输入正确的微信号'},
+                    { pattern: /^[a-zA-Z\d_]+$/,message: '请输入正确的微信号'},
                     { min: 6, max: 18, message: '微信账号长度为6-18位，请核对填写'}
                 ]
             },
@@ -305,14 +311,17 @@ export default {
                     { min: 5, max: 10, message: 'QQ号长度为5-10位，请核对填写'}
                 ],
                 vx: [
-                    { pattern: /^[a-zA-Z\d_]$/,message: '请输入正确的微信号'},
+                    { pattern: /^[a-zA-Z\d_]+$/,message: '请输入正确的微信号'},
                     { min: 6, max: 18, message: '微信账号长度为6-18位，请核对填写'}
                 ]
             },
             coverCondition: false,
             uploadAlbumIf: false,
             uploadAlbumShow:false,
-            albumList: []
+            albumList: [],
+            picData: [],
+            picURL: [],
+            picNum: 0,
         }
     },
     methods: {
@@ -335,10 +344,36 @@ export default {
         releaseSale(formName){
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    alert('成功发布二手信息');
-                    this.resetForm(formName);
+                    this.$http.post('http://192.168.43.166:8080/good/releaseSaleText',{
+                        "good":{
+                            "name": this.saleForm.goodsName,
+                            "introduction": this.saleForm.dynamic,
+                            "type": this.saleForm.type,
+                            "goodsID": this.goodsID
+                        },
+                        "saleMessage":{
+                            "price": this.saleForm.price,
+                            "local": this.saleForm.local,
+                            "school": this.saleForm.school,
+                            "wechat": this.saleForm.vx,
+                            "qq": this.saleForm.qq,
+                            "phone": this.saleForm.tel,
+                            "owner": this.saleForm.owner
+                        }
+                    },{timeout:3000})
+                    .then((res) => {
+                        if(res && res.data.status){
+                            console.log('发布二手成功');
+                            this.resetForm(formName);
+                        }
+                    }).catch((err) => {
+                        console.log('请求出错，请稍后再试');
+                        console.log(err);
+                    });
+                    // alert('成功发布二手信息');
+                    // this.resetForm(formName);
                 } else {
-                    console.log('error submit!!');
+                    console.log('输入格式出错');
                     return false;
                 }
             });
@@ -346,6 +381,25 @@ export default {
         releaseBuy(formName){
             this.$refs[formName].validate((valid) => {
                 if (valid) {
+                    // this.$http('post',{
+                    //     "good":{
+                    //         "name": this.saleForm.name,
+                    //         "introduction": this.saleForm.dynamic
+                    //     },
+                    //     "saleMessage":{
+                    //         "price": this.saleForm.price,
+                    //         "local": this.saleForm.local
+                    //     }
+                    // })
+                    // .then((res) => {
+                    //     if(res && res.data.status){
+                    //         console.log('发布成功');
+                    //         this.resetForm(formName);
+                    //     }
+                    // }).catch((err) => {
+                    //     console.log('请求出错，请稍后再试');
+                    //     console.log(err);
+                    // });
                     alert('成功发布求购信息');
                     this.resetForm(formName);
                 } else {
@@ -380,19 +434,31 @@ export default {
             }
             this.uploadAlbumShow = bool;
         },
-        handleAvatarSuccess(res, file, fileList) {
-            this.$message.error("上传失败，请稍后再试...");
-            this.changeUploadAlbumShow(false);
-        },
-        handleAvatarError(err, file, fileList){
-            this.$message.success();
-            this.$message.error("上传成功");
-            this.changeUploadAlbumShow(false);
-            this.uploadButtonType = 'success';
-            this.uploadButtonName = '已上传';
+        // handleAvatarSuccess(res, file, fileList) {
+        //     this.$message.error("上传失败，请稍后再试...");
+        //     this.changeUploadAlbumShow(false);
+        // },
+        // handleAvatarError(err, file, fileList){
+        //     this.$message.success();
+        //     this.$message.error("上传成功");
+        //     this.changeUploadAlbumShow(false);
+        //     this.uploadButtonType = 'success';
+        //     this.uploadButtonName = '已上传';
+        // },
+        removeImg(file, fileList){
+            this.picNum = fileList.length;
+            this.picURL = [];
+            fileList.forEach(e=>{
+                this.picURL.push(e.url);
+            })
         },
         checkImg(file, fileList){
-            // console.log(file.raw.type);
+            // console.log(fileList);
+            this.picURL = [];
+            fileList.forEach(e=>{
+                this.picURL.push(e.url);
+            })
+            this.picNum = fileList.length;
             const isJPG = file.raw.type === ('image/jpeg'||'image/png'||'image/bmp'||'image/tif');
             const isLt2M = file.size / 1024 / 1024 < 2;
             if (!isJPG) {
@@ -410,6 +476,49 @@ export default {
         submitUpload() {
             this.$refs.upload.submit();
         },
+        uploadGoodsPic(data){
+            this.picData.push(data.file);
+            if(this.picData.length == this.picNum && this.picNum){
+                this.uploadLoading = true;
+                // console.log(this.picData);
+                var formData = new FormData();
+                this.picData.forEach(element => {
+                    formData.append('files',element)
+                });
+                this.$http.post('http://192.168.43.166:8080/good/releaseGoodFile',
+                formData,
+                {timeout:3000})
+                .then((res) => {
+                    if(res && res.data.status){
+                        this.goodsID = res.data.goodsID;
+                        this.uploadLoading = false;
+                        this.$message.success('上传成功');
+                        this.changeUploadAlbumShow(false);
+                        this.uploadButtonAble = true;
+                        this.uploadButtonName = '已上传';
+                        this.uploadButtonType = 'success';
+                        // console.log('上传成功');
+                    }else{
+                        this.uploadLoading = false;
+                        this.picData = [];
+                        this.$message.error('上传出错，请刷新页面或稍后再试。');
+                        this.changeUploadAlbumShow(false);
+                        this.uploadButtonName = '上传失败，重新上传';
+                        this.uploadButtonType = 'danger';
+                        // console.log('后台无法解析');
+                    }
+                }).catch((err) => {
+                    this.uploadLoading = false;
+                    this.picData = [];
+                    this.$message.error('上传出错，请刷新页面或稍后再试。');
+                    this.changeUploadAlbumShow(false);
+                    this.uploadButtonName = '上传失败，重新上传';
+                    this.uploadButtonType = 'danger';
+                    // console.log('请求出错，请稍后再试');
+                    // console.log(err);
+                });
+            }
+        }
     },
     created(){
         document.title="发布"
@@ -421,7 +530,8 @@ export default {
     .release-whole{
         // height: 100%;
         position: relative;
-        background: rgba(0,255,255,0.1);
+        // background: rgba(0,255,255,0.1);
+        background: white;
         div.cover{
             position: absolute;
             height: 100%;

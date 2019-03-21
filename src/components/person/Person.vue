@@ -15,6 +15,10 @@
         </header>
 
         <aside>
+            <div class="release-button">
+                <el-button type="primary" round @click="changeRelease('sale')">发布二手</el-button>
+                <el-button type="warning" round @click="changeRelease('buy')">发布求购</el-button>
+            </div>
             <p>
                 <i class="iconfont icon-jiaoya"></i>明信片
                 <el-tooltip content="修改" placement="right">
@@ -31,7 +35,7 @@
             </ul>
             <ul v-if="infModifyCondition">
                 <li><span>姓名：</span><el-input clearable v-model="personInf.name" size="small" disabled></el-input></li>
-                <li><span>学校：</span><el-input v-model="personInf.school" size="small"></el-input></li>
+                <li><span>学校：</span><el-input v-model="personInf.school" size="small" disabled></el-input></li>
                 <li><span>学号：</span><el-input v-model="personInf.studentID" size="small"></el-input></li>
                 <li><span>手机：</span><el-input v-model="personInf.tel" size="small" disabled></el-input></li>
                 <li><span>Q Q：</span><el-input v-model="personInf.qq" size="small"></el-input></li>
@@ -54,10 +58,11 @@
 
                         <div class="saleTrade" v-show="item.tradeCondition">
                             <div @click="goGoods">查看详情</div>
-                            <div>已交易</div>
+                            <!-- <div>已交易</div> -->
+                            <img src="static/pic/yijiaoyi.png" alt="已交易" height="100%">
                         </div>
 
-                        <img :src="item.img" alt="暂时无图">
+                        <img class="goods-img" :src="item.img" alt="暂时无图">
                         <div class="goods-price-look">
                             <p><i class="iconfont icon-fl-renminbi"></i>{{ item.price }}</p>
                             <p><i class="iconfont icon-chakan"></i>{{ lookCheck(item.look) }}</p>
@@ -82,7 +87,8 @@
                         </div>
 
                         <div class="buyTrade" v-show="item.tradeCondition">
-                            <div>已交易</div>
+                            <!-- <div>已交易</div> -->
+                            <img src="static/pic/yijiaoyi.png" alt="已交易">
                         </div>
 
                         <p><i class="iconfont icon-shangpin">求购物品：</i>{{ item.goodsName }}</p>
@@ -300,7 +306,8 @@ export default {
     .person-whole{
         // height: 100%;
         // background: #E0FFFF;
-        background: rgba(0,255,255,0.1);
+        // background: rgba(0,255,255,0.1);
+        background: white;
         li.logo{
             margin: 0 20px 0 5px;
             border: 1px solid rgb(150, 238, 238);
@@ -315,7 +322,7 @@ export default {
             width: 100%;
             background: #484848;
             position: fixed;
-            z-index: 100;
+            z-index: 102;
             nav{
                 height: 100%;
                 ul{
@@ -370,18 +377,24 @@ export default {
         }
         aside{
             box-sizing: border-box;
-            width: 370px;
-            height: 400px;
+            width: 450px;
+            height: 100%;
             position: fixed;
-            top: 200px;
-            left: 30px;
-            background: #202020;
+            top: 50px;
+            left: 0;
+            background: rgba(192,192,192,0.3);
             z-index: 100;
-            // overflow-y: auto;
             overflow: auto;
             color: #B0B0B0;
-            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            // justify-content: center;
+            div.release-button{
+                margin: 50px 0 50px 0;
+            }
             p{
+                margin-bottom: 30px;
                 font-size: 50px;
                 color: #67C23A;
                 margin-top: 10px;
@@ -403,8 +416,10 @@ export default {
             }
             ul{
                 box-sizing: border-box;
-                width: 300px;
-                padding-left: 30px;
+                width: 350px;
+                padding: 30px;
+                border: 1px dotted black;
+                border-radius: 20px;
                 li{
                     width: 12em;
                     font-size: 25px;
@@ -414,7 +429,8 @@ export default {
                         display: inline-block;
                         width: 80px;
                         font-weight: bold;
-                        color: #CCFFFF;
+                        // color: #CCFFFF;
+                        color: black;
                     }
                     .el-input{
                         width: 220px;
@@ -427,7 +443,7 @@ export default {
         }
         main{
             padding-top: 50px;
-            padding-left: 500px;
+            padding-left: 450px;
             h2{
                 margin-bottom: 30px;
             }
@@ -462,23 +478,23 @@ export default {
                             border-radius: 10px;
                             width: 260px;
                             height: 370px;
-                            background: rgba(0,0,0,0.6);
+                            background: rgba(0,0,0,0.5);
                             z-index: 101;
                             display: flex;
                             flex-direction: column;
                             justify-content: space-around;
                             align-items: center;
                             div{
-                                width: 90px;
-                                height: 90px;
+                                width: 70px;
+                                height: 70px;
                                 border-radius: 50%;
-                                border: 1px solid black;
+                                border: 1px dashed #E0FFFF;
                                 display: flex;
                                 justify-content: center;
                                 align-items: center;
-                                font-size: 25px;
+                                font-size: 20px;
                                 font-weight: bold;
-                                color: gray;
+                                color: #E0FFFF;
                                 cursor: pointer;
                             }
                             div:nth-child(1):hover{
@@ -495,11 +511,12 @@ export default {
                             }
                         }
                         div.saleTrade{
+                            overflow: hidden;
                             position: absolute;
                             border-radius: 10px;
                             width: 260px;
                             height: 370px;
-                            background: rgba(0,0,0,0.5);
+                            // background: rgba(0,0,0,0.5);
                             z-index: 101;
                             display: flex;
                             justify-content: center;
@@ -516,10 +533,10 @@ export default {
                             div:nth-child(1):hover{
                                 color: #E6A23C;
                             }
-                            div:nth-child(2){
-                                color: #67C23A;
-                                font-size: 50px;
-                            }
+                            // div:nth-child(2){
+                            //     color: #67C23A;
+                            //     font-size: 50px;
+                            // }
                         }
                         div.goods-price-look{
                             width: 100%;
@@ -576,7 +593,7 @@ export default {
                                 margin-right: 5px;
                             }
                         }
-                        img{
+                        img.goods-img{
                             width: 250px;
                             height: 250px;
                             border-radius: 5px;
@@ -619,21 +636,21 @@ export default {
                             height: 100%;
                             left: 0px;
                             top: 0px;
-                            background: rgba(0,0,0,0.6);
+                            background: rgba(0,0,0,0.5);
                             z-index: 101;
                             display: flex;
                             justify-content: space-around;
                             align-items: center;
                             div{
-                                width: 120px;
-                                height: 120px;
+                                width: 90px;
+                                height: 90px;
                                 border-radius: 50%;
-                                border: 1px solid black;
+                                border: 1px dashed #E0FFFF;
                                 display: flex;
                                 justify-content: center;
                                 align-items: center;
-                                font-size: 30px;
-                                color: gray;
+                                font-size: 20px;
+                                color: #E0FFFF;
                                 cursor: pointer;
                             }
                             div:nth-child(1):hover{
@@ -646,13 +663,14 @@ export default {
                             }
                         }
                         div.buyTrade{
+                            overflow: hidden;
                             position: absolute;
                             border-radius: 10px;
                             width: 100%;
                             height: 100%;
                             top: 0;
                             left: 0;
-                            background: rgba(0,0,0,0.5);
+                            // background: rgba(0,0,0,0.5);
                             z-index: 101;
                             display: flex;
                             justify-content: center;
@@ -705,6 +723,7 @@ export default {
             }
         }
         footer{
+            margin-left: 450px;
             height: 100px;
             background: #484848;
             display: flex;

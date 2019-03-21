@@ -206,7 +206,8 @@ export default {
 
 <style lang="scss" scoped>
     div.goods-whole{
-        background: rgba(0,255,255,0.1);
+        // background: rgba(0,255,255,0.1);
+        background: white;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -265,7 +266,7 @@ export default {
             }
         }
         main{
-            background: white;
+            background: rgba(250,250,250,0.5);;
             width: 95%;
             border-radius: 15px;
             padding: 30px;
